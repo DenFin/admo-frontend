@@ -1,5 +1,5 @@
 <template>
-  <button :type="buttonType" class="bg-blue-600 text-white font-bold px-4 py-3 block w-full">{{ text }}</button>
+  <button :type="buttonType" class="bg-blue-600 text-white font-bold px-4 py-3 block">{{ text }}</button>
 </template>
 
 <script>
