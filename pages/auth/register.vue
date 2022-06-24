@@ -1,7 +1,10 @@
 <template>
   <AdmoContainer class="h-screen flex items-center">
     <div class="w-1/2 mx-auto p-8 shadow-md">
-      <AdmoFormRegister />
+      <AdmoFormRegister @registerSuccesful="registerSuccesful === true" />
+      <div v-if="registerSuccesful">
+        Registrierung erfolgreich!
+      </div>
     </div>
   </AdmoContainer>
 </template>
@@ -14,6 +17,11 @@ export default {
   components: {
     AdmoContainer,
     AdmoFormRegister
+  },
+  data(){
+    return {
+      registerSuccesful: null
+    }
   }
 }
 </script>

@@ -4,6 +4,7 @@
       <h1 class="text-4xl font-bold mb-4">Register to Admo App</h1>
     </div>
     <div>
+      <div v-if="errorStatusCode === 409">A user with this e-Mail already exists!</div>
       <AdmoInput v-model="formData.email" input-type="email" placeholder="Your e-Mail address" />
     </div>
     <div>
@@ -37,19 +38,22 @@ export default {
         password: '',
         confirmPassword: '',
         username: ''
-      }
+      },
+      errorStatusCode: null,
     }
   },
   methods: {
     showErrorMessage(statusCode) {
-      if(statusCode === '409') console.log('409!!!!!')
+      if(statusCode === '409') this.errorStatusCode = 409
+    },
+    showSuccessMessageAndRedirectToLogin(){
+      this.$emit('register-succesful')
+      this.$router.push('/auth/login')
     },
     async submitForm($event) {
       let result
-      console.log($event)
       try {
         result = await this.$axios.post('http://localhost:8080/api/v1/auth/register', this.formData)
-        console.log('result', result)
       } catch(error) {
         switch(error.response.status) {
           case 409:
@@ -59,7 +63,9 @@ export default {
         console.log(error.response)
         console.log(error)
       }
-      console.log(result)
+      if(result?.status === 200) {
+        this.showSuccessMessageAndRedirectToLogin()
+      }
     }
   }
 }
