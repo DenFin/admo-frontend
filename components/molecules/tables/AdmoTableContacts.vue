@@ -1,10 +1,10 @@
 <template>
   <div class="admo-table">
     <div class="admo-table-head">
-      <div class="flex">
-        <div class="w-1/3"><span>Name</span></div>
-        <div class="w-1/3"><span>DOB</span></div>
-        <div class="w-1/3"><span>Street</span></div>
+      <div class="flex border-b py-2">
+        <div class="w-1/3"><span class="font-bold">Name</span></div>
+        <div class="w-1/3"><span class="font-bold">DOB</span></div>
+        <div class="w-1/3"><span class="font-bold">Street</span></div>
       </div>
     </div>
     <div class="admo-table-row py-2 mb-2 border-b" v-for="contact in contacts" :key="contact.name">
