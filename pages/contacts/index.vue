@@ -7,7 +7,7 @@
          <AdmoButton @click.native="openOverlay" class="w-auto self-start" button-type="button" text="Create new contact" />
        </div>
        <section class="py-5">
-         <AdmoTableContacts />
+         <AdmoTableContacts :contacts="contacts" />
        </section>
        <section>
 
@@ -38,6 +38,10 @@ export default {
     openOverlay(){
       this.$store.dispatch('ui/overlay.store/setActive')
     }
+  },
+  async asyncData({ $axios }) {
+    const contacts = await $axios.$get('/api/v1/contacts')
+    return { contacts }
   }
 }
 </script>
