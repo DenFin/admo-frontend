@@ -7,6 +7,9 @@
 <script>
 import AdmoHeader from "@/components/layout/AdmoHeader";
 export default {
-  components: {AdmoHeader}
+  components: {AdmoHeader},
+  mounted(){
+    console.log(this.$auth)
+  }
 }
 </script>

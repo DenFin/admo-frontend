@@ -1,13 +1,16 @@
 <template>
   <header class="bg-black py-4">
-    <AdmoContainer>
+    <AdmoContainer class="flex justify-between items-center">
       <h1 class="text-white font-bold">AdmoApp2022</h1>
+      <AdmoButton v-if="!$store.state.auth.loggedIn" text="Login" to="/auth/login" />
+      <AdmoButton v-else-if="$store.state.auth.loggedIn" text="Logout" to="/auth/logout" />
     </AdmoContainer>
   </header>
 </template>
 <script>
 import AdmoContainer from "@/components/layout/AdmoContainer";
+import AdmoButton from "@/components/atoms/AdmoButton";
 export default {
-  components: {AdmoContainer}
+  components: {AdmoButton, AdmoContainer}
 }
 </script>
