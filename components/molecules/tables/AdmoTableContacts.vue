@@ -14,7 +14,10 @@
         <div class="w-1/4">{{ contact.lastname }}</div>
         <div class="w-1/4">{{ contact._id }}</div>
         <div class="w-1/4">
-          <div @click="deleteContact(contact._id)" class="cursor-pointer h-8 shadow-md inline-block px-2 font-bold">Delete</div>
+          <div class="flex">
+            <AdmoButton button-type="button" :button-classes="'bg-gray-600 mr-2'"  @click.native="editContact(contact._id)" is-small text="Edit"/>
+            <AdmoButton button-type="button" :button-classes="'bg-red-600'" @click.native="deleteContact(contact._id)" is-small text="Delete"/>
+          </div>
         </div>
       </div>
     </div>
@@ -22,16 +25,27 @@
 </template>
 
 <script>
+import AdmoButton from "@/components/atoms/AdmoButton";
 export default {
+  components: {AdmoButton},
   props: {
     contacts: {
       type: Array,
       required: true
     }
   },
+  data(){
+    return {
+      contactEdited: {}
+    }
+  },
   methods: {
+    editContact(id) {
+      this.$router.replace({path: '/contacts', query: { id }})
+      this.$emit('open-overlay-edit', id)
+    },
     async deleteContact(id){
-      const result = await this.$axios.delete(`http://localhost:8080/api/v1/contacts/${id}`)
+      const result = await this.$axios.delete(`/api/v1/contacts/${id}`)
       if(result.status === 204) {
         this.$emit('reload-data')
       }

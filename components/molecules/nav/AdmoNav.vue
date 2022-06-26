@@ -3,7 +3,7 @@
     <AdmoContainer>
       <ul>
         <li class="nav-item inline-block" v-for="(item, index) in navItems" :key="index">
-          <nuxt-link class="block py-3 px-5" :to="item.to" >{{ item.text }}</nuxt-link>
+          <nuxt-link class="block py-3 px-5 text-white" :to="item.to" >{{ item.text }}</nuxt-link>
         </li>
       </ul>
     </AdmoContainer>
@@ -37,6 +37,10 @@ export default {
         {
           to: '/revenues',
           text: 'Revenues'
+        },
+        {
+          to: '/settings',
+          text: 'Settings'
         }
       ]
     }

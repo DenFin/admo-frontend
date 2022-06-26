@@ -4,7 +4,10 @@
       <AdmoHeadline headline-type="h1" text="Dashboard" />
       <AdmoGrid grid-columns="3" grid-gap="8">
         <AdmoCardGeneral><AdmoCardUserInfo /></AdmoCardGeneral>
-        <AdmoCardGeneral />
+        <AdmoCardGeneral v-if="contactsCount">
+          <span class="font-bold">Contacts</span><br>
+          <span>You have {{ contactsCount }} contacts.</span>
+        </AdmoCardGeneral>
         <AdmoCardGeneral />
       </AdmoGrid>
     </AdmoContainer>
@@ -21,15 +24,10 @@ import AdmoCardUserInfo from "@/components/molecules/cards/AdmoCardUserInfo";
 export default {
   name: 'IndexPage',
   components: {AdmoCardUserInfo, AdmoPanel, AdmoHeadline, AdmoContainer, AdmoCardGeneral, AdmoGrid },
-  data(){
-    return {
-      number: 1
-    }
-  },
-  computed: {
-    random(){
-      return this.number + 1
-    }
+  async asyncData({ $axios, $config: { baseURL } }){
+    const { data } = await $axios.get(`/api/v1/contacts/count`)
+    const contactsCount = data
+    return { contactsCount }
   }
 }
 </script>
