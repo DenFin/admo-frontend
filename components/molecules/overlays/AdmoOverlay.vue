@@ -19,7 +19,9 @@ export default {
   components: {AdmoContainer},
   methods: {
     closeOverlay(){
+      const path = this.$route.path
       this.$store.dispatch('ui/overlay.store/setActive', false)
+      this.$router.replace({path, query: ''})
     }
   }
 }
