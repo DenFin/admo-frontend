@@ -1,5 +1,5 @@
 <template>
-  <input v-bind:value="value" v-on:input="updateValue($event.target.value)" class="shadow-md mb-3 p-2 focus:border-4 focus:border-solid focus:border-slate-200 block w-full" :type="inputType">
+  <input v-bind:value="value" v-on:input="updateValue($event.target.value)" class="shadow-md p-2 focus:border-4 focus:border-solid focus:border-slate-200 block" :type="inputType">
 </template>
 
 <script>
