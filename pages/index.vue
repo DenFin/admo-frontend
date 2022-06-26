@@ -1,6 +1,5 @@
 <template>
   <div v-if="$auth.loggedIn">You are logged in</div>
-  <div v-else>You are NOT logged in</div>
 </template>
 
 <script>

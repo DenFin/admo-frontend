@@ -7,15 +7,12 @@
          <AdmoButton @click.native="openOverlay" class="w-auto self-start" button-type="button" text="Create new contact" />
        </div>
        <section class="py-5">
-         <AdmoTableContacts :contacts="contacts" />
-       </section>
-       <section>
-
+         <AdmoTableContacts :contacts="contacts" @reload-data="reloadData" />
        </section>
      </AdmoContainer>
    </AdmoPanel>
    <AdmoOverlay v-if="isActive">
-     <AdmoFormContactCreate />
+     <AdmoFormContactCreate @reload-data="reloadData" />
    </AdmoOverlay>
  </div>
 </template>
@@ -37,6 +34,9 @@ export default {
   methods: {
     openOverlay(){
       this.$store.dispatch('ui/overlay.store/setActive')
+    },
+    async reloadData(){
+      this.contacts = await this.$axios.$get('/api/v1/contacts')
     }
   },
   async asyncData({ $axios }) {
