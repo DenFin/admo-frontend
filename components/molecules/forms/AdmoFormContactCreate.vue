@@ -3,14 +3,29 @@
     <div>
       <AdmoHeadline class="mb-8" headline-type="h2" text="Create a new contact" />
     </div>
-    <div>
-      <AdmoInput v-model="contact.firstname" input-type="text" placeholder="Enter a firstname" />
+    <div class="mb-3">
+      <AdmoLabel :for-attr="firstname" text="Firstname"/>
+      <AdmoInput class="w-full" v-model="contact.firstname" input-type="text" placeholder="Enter a firstname" />
     </div>
-    <div>
-      <AdmoInput v-model="contact.lastname" input-type="text" placeholder="Enter a lastname" />
+    <div class="mb-3">
+      <AdmoLabel :for-attr="lastname" text="Lastname"/>
+      <AdmoInput class="w-full" v-model="contact.lastname" input-type="text" placeholder="Enter a lastname" />
     </div>
-    <div>
-      <AdmoInput v-model="contact.dob" input-type="date" placeholder="Select a date of birth" />
+    <div class="mb-3">
+      <AdmoLabel :for-attr="dob" text="Date of birth"/>
+      <AdmoInput class="w-full" v-model="contact.dob" input-type="date" placeholder="Select a date of birth" />
+    </div>
+    <div class="mb-3">
+      <AdmoLabel :for-attr="dob" text="Street"/>
+      <AdmoInput class="w-full" v-model="contact.street" input-type="text" placeholder="Enter you address street" />
+    </div>
+    <div class="mb-3">
+      <AdmoLabel :for-attr="dob" text="City"/>
+      <AdmoInput class="w-full" v-model="contact.city" input-type="text" placeholder="Enter your city" />
+    </div>
+    <div class="mb-3">
+      <AdmoLabel :for-attr="dob" text="ZIP"/>
+      <AdmoInput class="w-full" v-model="contact.zip" input-type="text" placeholder="Enter your ZIP Code" />
     </div>
     <div>
       <AdmoButton button-type="submit" text="Create new contact"></AdmoButton>
@@ -22,9 +37,11 @@
 import AdmoButton from "~/components/atoms/AdmoButton";
 import AdmoInput from "~/components/atoms/AdmoInput";
 import AdmoHeadline from "@/components/atoms/AdmoHeadline";
+import AdmoLabel from "@/components/atoms/AdmoLabel";
 
 export default {
   components: {
+    AdmoLabel,
     AdmoHeadline,
     AdmoButton,
     AdmoInput
@@ -35,7 +52,10 @@ export default {
       contact: {
         firstname: '',
         lastname: '',
-        dob: null
+        dob: null,
+        street: '',
+        city: '',
+        zip: ''
       }
     }
   },
