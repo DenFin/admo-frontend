@@ -12,21 +12,27 @@
       </div>
     </div>
     <div class="admo-table-row py-2 mb-2 border-b" v-for="contact in contacts" :key="contact.name">
-      <div class="grid grid-cols-7">
-        <div class="pr-4 overflow-hidden overflow-ellipsis space-nowrap">{{ contact._id }}</div>
-        <div class="">{{ contact.firstname }}</div>
-        <div class="">{{ contact.lastname }}</div>
-        <div>{{ contact.street }}</div>
-        <div>{{ contact.city }}</div>
-        <div>{{ contact.zip }}</div>
-        <div class="">
-          <div class="flex">
-            <AdmoButton button-type="button" :button-classes="'bg-gray-600 mr-2'"  @click.native="editContact(contact._id)" is-small text="Edit"/>
-            <AdmoButton button-type="button" :button-classes="'bg-red-600 mr-2'" @click.native="deleteContact(contact._id)" is-small text="Delete"/>
-            <AdmoButton button-type="button" :button-classes="'bg-gray-600'" text="Duplicate"  is-small />
+
+        <div class="grid grid-cols-7">
+          <div class="pr-4 overflow-hidden overflow-ellipsis space-nowrap">
+            <nuxt-link :to="{ path: `contacts/${contact._id}`}">
+              {{ contact._id }}
+            </nuxt-link>
+          </div>
+          <div class="">{{ contact.firstname }}</div>
+          <div class="">{{ contact.lastname }}</div>
+          <div>{{ contact.street }}</div>
+          <div>{{ contact.city }}</div>
+          <div>{{ contact.zip }}</div>
+          <div class="">
+            <div class="flex">
+              <AdmoButton button-type="button" :button-classes="'bg-gray-600 mr-2'"  @click.stop.native="editContact(contact._id)" is-small text="Edit"/>
+              <AdmoButton button-type="button" :button-classes="'bg-red-600 mr-2'" @click.stop.native="deleteContact(contact._id)" is-small text="Delete"/>
+              <AdmoButton button-type="button" :button-classes="'bg-gray-600'" text="Duplicate"  is-small />
+            </div>
           </div>
         </div>
-      </div>
+
     </div>
   </div>
 </template>
