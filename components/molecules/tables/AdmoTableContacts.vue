@@ -40,7 +40,7 @@
 <script>
 import AdmoButton from "@/components/atoms/AdmoButton";
 export default {
-  components: {AdmoButton},
+  components: { AdmoButton },
   props: {
     contacts: {
       type: Array,
