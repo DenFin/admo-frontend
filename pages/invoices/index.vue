@@ -8,21 +8,12 @@
         </div>
       </AdmoContainer>
       <AdmoContainer>
-        <div class="border-b-2 py-2 flex">
-          <div class="w-1/5"><span class="font-bold">Position</span></div>
-          <div class="w-1/5"><span class="font-bold">Beschreibung</span></div>
-          <div class="w-1/5"><span class="font-bold">Satz</span></div>
-          <div class="w-1/5"><span class="font-bold">Menge</span></div>
-          <div class="w-1/5"><span class="font-bold">Gesamt</span></div>
+        <AdmoTableHead />
+        <AdmoTableRow v-for="row in rows" :key="row.position" :row="row" />
+        <div class="flex">
+          <AdmoButton class="mt-4 mr-4" @click.native="addRow" text="Add row" button-type="button" />
+          <AdmoButton class="mt-4 bg-gray" @click.native="addRow" text="Add sub row" button-type="button" />
         </div>
-        <div v-for="row in rows" :key="row.position" class="flex border-b py-2">
-          <div class="w-1/5"><span class="font-bold">{{ row.position }}</span></div>
-          <div class="w-1/5"><span class="font-bold">{{ row.description }}</span></div>
-          <div class="w-1/5"><span class="font-bold">{{ row.price }}</span></div>
-          <div class="w-1/5"><span class="font-bold">{{ row.quantity }}</span></div>
-          <div class="w-1/5"><span class="font-bold">{{ row.total }}</span></div>
-        </div>
-        <AdmoButton class="mt-4" @click.native="addRow" text="Add row" button-type="button" />
       </AdmoContainer>
     </AdmoPanel>
     <AdmoOverlay v-if="isActive">
@@ -37,18 +28,28 @@ import AdmoContainer from "@/components/layout/AdmoContainer";
 import AdmoHeadline from "@/components/atoms/AdmoHeadline";
 import AdmoButton from "@/components/atoms/AdmoButton";
 import AdmoOverlay from "@/components/molecules/overlays/AdmoOverlay";
+import AdmoTableHead from "@/components/molecules/tables/AdmoTableHead";
+import AdmoTableRow from "@/components/molecules/tables/AdmoTableRow";
+import AdmoFormContactCreate from "@/components/molecules/forms/AdmoFormContactCreate";
 export default {
-  components: {AdmoOverlay, AdmoButton, AdmoHeadline, AdmoContainer, AdmoPanel},
+  components: { AdmoTableRow, AdmoTableHead, AdmoOverlay, AdmoButton, AdmoHeadline, AdmoContainer, AdmoPanel, AdmoFormContactCreate},
   mixins: [hasOverlayMixin],
   data(){
     return {
       rows: [
         {
           position: 1,
-          description: '',
-          price:  null,
-          quantity: null,
-          total:  null
+          description: 'Test',
+          price:  '60.00',
+          quantity: '4',
+          total:  '240.00'
+        },
+        {
+          position: 2,
+          description: 'Test',
+          price:  '60.00',
+          quantity: '4',
+          total:  '240.00'
         }
       ]
     }
@@ -57,6 +58,9 @@ export default {
     addRow(){
       const length = this.rows.length
       this.rows.push({ position: length + 1})
+    },
+    updateValue(el){
+      console.log(el)
     }
   }
 }
