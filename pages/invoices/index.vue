@@ -14,7 +14,7 @@
         <AdmoBox class="mb-8">
           <div class="mb-4">
             <label class="block font-bold mb-2" for="">Kunde</label>
-            <select class="block p-4 w-1/2" name="" id="">
+            <select @change="setClient($event)" class="block p-4 w-1/2" name="" id="">
               <option v-for="client in clients" :key="client._id" :value="client.company">{{ client.company }}</option>
             </select>
           </div>
@@ -23,8 +23,12 @@
             <AdmoInput v-model="invoice.generalInformation.invoiceTitel" class="w-1/2" />
           </div>
           <div class="mb-4">
+            <label class="block font-bold mb-2" for="">Rechnungsdatum</label>
+            <AdmoInput type="date" v-model="invoice.generalInformation.invoiceDate" class="w-1/2" />
+          </div>
+          <div class="mb-4">
             <label class="block font-bold mb-2" for="">Rechnungsnummer</label>
-            <AdmoInput class="w-1/2" />
+            <AdmoInput v-model="invoice.generalInformation.invoiceNumber" class="w-1/2" />
           </div>
           <div class="mb-4">
             <label class="block font-bold mb-2" for="">Ust.-Id. vom Kunden</label>
@@ -33,8 +37,14 @@
         </AdmoBox>
       </AdmoContainer>
       <AdmoContainer>
-        <AdmoTableHead />
-        <AdmoTableRow v-for="row in rows" :key="row.position" :row="row" />
+        <AdmoTableHead :head-cells="headCells" />
+        <AdmoTableRow v-for="row in rows" :key="row.position" :row="row" class="grid grid-cols-5">
+          <AdmoTableCell :text="row.position"/>
+          <AdmoTableCell :text="row.description"/>
+          <AdmoTableCell :text="row.price"/>
+          <AdmoTableCell :text="row.quantity"/>
+          <AdmoTableCell :text="row.total"/>
+        </AdmoTableRow>
         <div class="flex">
           <AdmoButton class="mt-4 mr-4" @click.native="addRow" text="Add row" button-type="button" />
           <AdmoButton class="mt-4 bg-gray" @click.native="addRow" text="Add sub row" button-type="button" />
@@ -61,8 +71,10 @@ import AdmoFormContactCreate from "@/components/molecules/forms/AdmoFormContactC
 import AdmoPdfPreview from "@/components/organisms/pdf_preview/AdmoPdfPreview";
 import AdmoBox from "@/components/molecules/boxes/AdmoBox";
 import AdmoInput from "@/components/atoms/AdmoInput";
+import AdmoTableCell from "@/components/molecules/tables/AdmoTableCell";
 export default {
   components: {
+    AdmoTableCell,
     AdmoInput,
     AdmoBox,
     AdmoPdfPreview, AdmoTableRow, AdmoTableHead, AdmoOverlay, AdmoButton, AdmoHeadline, AdmoContainer, AdmoPanel, AdmoFormContactCreate},
@@ -72,11 +84,13 @@ export default {
   },
   data(){
     return {
+      headCells: ['Position', 'Beschreibung', 'Satz', 'Menge', 'Gesamt'],
       invoice: {
         generalInformation: {
           client: null,
           invoiceTitel: null,
           invoiceNumber: null,
+          invoiceDate: null,
           moreValueTaxIdOfClient: null
         }
       },
@@ -108,6 +122,10 @@ export default {
     },
     showPreview(){
       console.log('test')
+    },
+    setClient(e){
+      console.log(e.target.value)
+      this.invoice.generalInformation.client = e.target.value
     }
   }
 }

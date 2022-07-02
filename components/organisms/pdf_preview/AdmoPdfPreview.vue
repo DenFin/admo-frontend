@@ -2,6 +2,7 @@
   <div class="pdf-preview shadow-xl mx-auto">
     <div class="pdf-preview-container">
       <div class="pdf-preview__head">
+        <span class="font-bold">{{ invoice.generalInformation.client }}</span>
       </div>
       <div class="pdf-preview__sidebar">
         <div>
@@ -17,6 +18,18 @@
           <span>BIC: GENODED1EVB</span><br><br>
 
 
+        </div>
+      </div>
+      <div class="pdf-preview__pre-content">
+        <div class="invoice__info">
+          <div>
+            <span class="font-bold">Rechnungsdatum</span><br>
+            <span>{{ invoice.generalInformation.invoiceDate }}</span>
+          </div>
+          <div>
+            <span class="font-bold">Rechnungsnummer</span><br>
+            <span>{{ invoice.generalInformation.invoiceNumber }}</span>
+          </div>
         </div>
       </div>
       <div class="pdf-preview__content">
@@ -85,6 +98,12 @@ export default {
   @apply text-right absolute;
   top: 35mm;
   right: 15mm;
+}
+
+.pdf-preview__pre-content {
+  @apply absolute;
+  top: 100mm;
+  left: 15mm;
 }
 
 .pdf-preview__content {

@@ -4,19 +4,19 @@
       <AdmoHeadline class="mb-8" headline-type="h2" text="Create a new client" />
     </div>
     <div class="mb-3">
-      <AdmoLabel :for-attr="company" text="Company name"/>
+      <AdmoLabel text="Company name"/>
       <AdmoInput class="w-full" v-model="client.company" input-type="text" placeholder="Enter a company name" />
     </div>
     <div class="mb-3">
-      <AdmoLabel :for-attr="dob" text="Street"/>
+      <AdmoLabel  text="Street"/>
       <AdmoInput class="w-full" v-model="client.street" input-type="text" placeholder="Enter address street" />
     </div>
     <div class="mb-3">
-      <AdmoLabel :for-attr="dob" text="City"/>
+      <AdmoLabel  text="City"/>
       <AdmoInput class="w-full" v-model="client.city" input-type="text" placeholder="Enter city" />
     </div>
     <div class="mb-3">
-      <AdmoLabel :for-attr="dob" text="ZIP"/>
+      <AdmoLabel text="ZIP"/>
       <AdmoInput class="w-full" v-model="client.zip" input-type="text" placeholder="EnterZIP Code" />
     </div>
     <div>

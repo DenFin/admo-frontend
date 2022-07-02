@@ -17,7 +17,6 @@ export default {
   },
   mounted(){
     if(!this.$store.state.auth.loggedIn) this.$router.push('/auth/login')
-    console.log(this.$auth)
   },
 }
 </script>

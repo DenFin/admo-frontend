@@ -8,7 +8,10 @@
           <span class="font-bold">Contacts</span><br>
           <span>You have {{ contactsCount }} contacts.</span>
         </AdmoCardGeneral>
-        <AdmoCardGeneral />
+        <AdmoCardGeneral>
+          <span class="font-bold">Your session will expire at</span><br>
+          <span>{{sessionExpirationTime}}</span>
+        </AdmoCardGeneral>
       </AdmoGrid>
     </AdmoContainer>
   </AdmoPanel>
@@ -28,6 +31,31 @@ export default {
     const { data } = await $axios.get(`/api/v1/contacts/count`)
     const contactsCount = data
     return { contactsCount }
+  },
+  data(){
+    return {
+      sessionExpirationTime: null,
+      milliseconds: this.$auth.strategy.token.$storage._state["_token_expiration.local"],
+      now: new Date()
+    }
+  },
+  methods: {
+    getExpirationTime(){
+      const milliseconds = this.$auth.strategy.token.$storage._state["_token_expiration.local"]
+      const date = new Date(milliseconds)
+      this.sessionExpirationTime = date.toLocaleTimeString('de')
+    }
+  },
+  mounted(){
+    const now = this.now
+    const milliseconds = this.milliseconds
+    this.getExpirationTime()
+    setInterval(() => {
+      const seconds = Math.floor(((milliseconds - now) / 1000))
+      const minutes = Math.floor(((milliseconds - now) / 1000) / 60)
+      const time = `${minutes}:${seconds}`
+      console.log('time', time)
+    }, 1000)
   }
 }
 </script>
