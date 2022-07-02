@@ -1,6 +1,6 @@
 <template>
   <div v-if="$store.state.auth.user">
-    <p>Welcome back {{ user.username }}!</p>
+    <p class="font-bold">Welcome back {{ user.username }}!</p>
   </div>
 </template>
 
