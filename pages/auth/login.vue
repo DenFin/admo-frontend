@@ -1,7 +1,9 @@
 <template>
   <AdmoPanel>
     <AdmoContainer>
-      <AdmoFormLogin class="w-full lg:w-1/3" />
+      <AdmoCardGeneral class="max-w-xl mx-auto">
+        <AdmoFormLogin class="w-full" />
+      </AdmoCardGeneral>
     </AdmoContainer>
   </AdmoPanel>
 </template>
@@ -9,7 +11,8 @@
 import AdmoContainer from "@/components/layout/AdmoContainer";
 import AdmoFormLogin from "@/components/molecules/forms/AdmoFormLogin";
 import AdmoPanel from "@/components/layout/AdmoPanel";
+import AdmoCardGeneral from "@/components/molecules/cards/AdmoCardGeneral";
 export default {
-  components: {AdmoPanel, AdmoFormLogin, AdmoContainer}
+  components: {AdmoCardGeneral, AdmoPanel, AdmoFormLogin, AdmoContainer}
 }
 </script>

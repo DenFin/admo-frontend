@@ -4,13 +4,13 @@
       <h1 class="text-4xl font-bold mb-4">Log in to Admo App</h1>
     </div>
     <div>
-      <AdmoInput v-model="loginData.email" input-type="email" placeholder="Your e-Mail address" />
+      <AdmoInput class="w-full mb-4" v-model="loginData.email" input-type="email" placeholder="Your e-Mail address" />
     </div>
     <div>
-      <AdmoInput v-model="loginData.password" input-type="password" placeholder="Your password" />
+      <AdmoInput class="w-full mb-4" v-model="loginData.password" input-type="password" placeholder="Your password" />
     </div>
     <div>
-      <AdmoButton button-type="submit" text="Login"></AdmoButton>
+      <AdmoButton class="w-full" button-type="submit" text="Login"></AdmoButton>
     </div>
   </form>
 </template>

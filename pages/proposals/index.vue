@@ -4,7 +4,7 @@
       <AdmoContainer>
         <div class="w-full inline-flex justify-between">
           <AdmoHeadline headline-type="h1" text="Proposals" />
-          <AdmoButton @click.native="openOverlay" class="w-auto self-start" button-type="button" text="Create new invoice" />
+          <AdmoButton @click.native="openOverlay" class="w-auto self-start" button-type="button" text="Create new proposal" />
         </div>
       </AdmoContainer>
     </AdmoPanel>

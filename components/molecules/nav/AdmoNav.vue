@@ -27,6 +27,10 @@ export default {
           text: 'Contacts'
         },
         {
+          to: '/clients',
+          text: 'Clients'
+        },
+        {
           to: '/proposals',
           text: 'Proposals'
         },
