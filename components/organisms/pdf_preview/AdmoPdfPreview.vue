@@ -42,11 +42,11 @@
               <thead></thead>
               <tbody>
                 <tr class="border-b border-white" v-for="row in rows" :key="row.position">
-                  <td class="bg-gray-100 p-4 border-r border-white">{{ row.position }}</td>
-                  <td class="bg-gray-100 p-4 border-r border-white">{{ row.description }}</td>
-                  <td class="bg-gray-100 p-4 border-r border-white">{{ row.price }}</td>
-                  <td class="bg-gray-100 p-4 border-r border-white">{{ row.quantity }}</td>
-                  <td class="bg-gray-100 p-4">{{ row.total }}</td>
+                  <td class="bg-gray-100 p-2 border-r border-white">{{ row.position }}</td>
+                  <td class="bg-gray-100 p-2 border-r border-white">{{ row.description }}</td>
+                  <td class="bg-gray-100 p-2 border-r border-white">{{ row.price }}</td>
+                  <td class="bg-gray-100 p-2 border-r border-white">{{ row.quantity }}</td>
+                  <td class="bg-gray-100 p-2">{{ row.total }}</td>
                 </tr>
               </tbody>
             </table>

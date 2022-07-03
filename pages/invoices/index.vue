@@ -20,41 +20,50 @@
           </div>
           <div class="mb-4">
             <label class="block font-bold mb-2" for="">Rechnungstitel</label>
-            <AdmoInput v-model="invoice.generalInformation.invoiceTitel" class="w-1/2" />
+            <AdmoInput input-type="text" v-model="invoice.generalInformation.invoiceTitel" class="w-1/2" />
           </div>
           <div class="mb-4">
             <label class="block font-bold mb-2" for="">Rechnungsdatum</label>
-            <AdmoInput type="date" v-model="invoice.generalInformation.invoiceDate" class="w-1/2" />
+            <AdmoInput input-type="text" type="date" v-model="invoice.generalInformation.invoiceDate" class="w-1/2" />
           </div>
           <div class="mb-4">
             <label class="block font-bold mb-2" for="">Rechnungsnummer</label>
-            <AdmoInput v-model="invoice.generalInformation.invoiceNumber" class="w-1/2" />
+            <AdmoInput input-type="text" v-model="invoice.generalInformation.invoiceNumber" class="w-1/2" />
           </div>
           <div class="mb-4">
             <label class="block font-bold mb-2" for="">Ust.-Id. vom Kunden</label>
-            <AdmoInput class="w-1/2" />
+            <AdmoInput input-type="text" class="w-1/2" />
           </div>
         </AdmoBox>
       </AdmoContainer>
       <AdmoContainer>
         <AdmoTableHead :head-cells="headCells" />
         <AdmoTableRow v-for="row in rows" :key="row.position" :row="row" class="grid grid-cols-5">
-          <AdmoTableCell :text="row.position"/>
-          <AdmoTableCell :text="row.description"/>
+          <AdmoTableCell :text="row.position.toString()"/>
+          <AdmoTableCell>
+            <template #editable>
+              <AdmoTextEditable :value="row.description"/>
+            </template>
+          </AdmoTableCell>
           <AdmoTableCell :text="row.price"/>
           <AdmoTableCell :text="row.quantity"/>
           <AdmoTableCell :text="row.total"/>
         </AdmoTableRow>
         <div class="flex">
           <AdmoButton class="mt-4 mr-4" @click.native="addRow" text="Add row" button-type="button" />
-          <AdmoButton class="mt-4 bg-gray" @click.native="addRow" text="Add sub row" button-type="button" />
+          <AdmoButton class="mt-4 mr-4" @click.native="addRow" text="Add sub row" button-type="button" />
+          <AdmoButton class="mt-4 " @click.native="saveInvoice" text="Save invoice" button-type="button" />
         </div>
+      </AdmoContainer>
+      <AdmoContainer>
+        <AdmoPdfPreview :rows="rows" :invoice="invoice" />
+        <AdmoButton class="m-8 bg-gray mx-auto" @click.native="addRow" text="Create PDF" button-type="button" />
       </AdmoContainer>
     </AdmoPanel>
     <AdmoOverlay v-if="isActive">
       <AdmoFormContactCreate @reload-data="reloadData('invoices')" />
     </AdmoOverlay>
-    <AdmoPdfPreview :rows="rows" :invoice="invoice" />
+
   </div>
 </template>
 <script>
@@ -72,12 +81,14 @@ import AdmoPdfPreview from "@/components/organisms/pdf_preview/AdmoPdfPreview";
 import AdmoBox from "@/components/molecules/boxes/AdmoBox";
 import AdmoInput from "@/components/atoms/AdmoInput";
 import AdmoTableCell from "@/components/molecules/tables/AdmoTableCell";
+import AdmoTextEditable from "@/components/atoms/AdmoTextEditable";
 export default {
   components: {
+    AdmoTextEditable,
     AdmoTableCell,
     AdmoInput,
     AdmoBox,
-    AdmoPdfPreview, AdmoTableRow, AdmoTableHead, AdmoOverlay, AdmoButton, AdmoHeadline, AdmoContainer, AdmoPanel, AdmoFormContactCreate},
+    AdmoPdfPreview, AdmoTableRow, AdmoTableHead, AdmoOverlay, AdmoButton, AdmoHeadline, AdmoContainer, AdmoPanel, AdmoFormContactCreate },
   mixins: [hasOverlayMixin],
   computed: {
     ...mapState('data/clients.store', ['clients'])
@@ -126,6 +137,38 @@ export default {
     setClient(e){
       console.log(e.target.value)
       this.invoice.generalInformation.client = e.target.value
+    },
+    async saveInvoice(){
+      const invoice = {
+        nr: this.invoice.generalInformation.invoiceNumber,
+        client: this.invoice.generalInformation.client,
+        title: this.invoice.generalInformation.invoiceTitel,
+        date: this.invoice.generalInformation.invoiceDate,
+        dateRangeStart: null,
+        dateRangeEnd: null,
+        status: "pending",
+        items: JSON.stringify(this.rows)
+      }
+
+      console.log(invoice)
+      const result = await this.$axios.$post('/api/v1/invoices', invoice)
+      console.log('result', result)
+      if(result.status === 201) {
+        console.log('IT WORKED')
+      }
+
+    },
+    async createPDF(){
+
+    }
+  },
+  async asyncData({ $axios, store }){
+    if(store.state["data/clients.store/clients"]?.length === 0 || store.state["data/clients.store/clients"] === undefined) {
+      const clients = await $axios.$get('/api/v1/clients')
+      if(clients.length > 0) {
+        store.dispatch('data/clients.store/setClients', clients)
+      }
+      return { clients }
     }
   }
 }

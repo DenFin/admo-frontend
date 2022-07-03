@@ -1,5 +1,8 @@
 <template>
-  <span>{{ text }}</span>
+  <div>
+    <slot name="text"><span>{{ text }}</span></slot>
+    <slot name="editable"></slot>
+  </div>
 </template>
 
 <script>

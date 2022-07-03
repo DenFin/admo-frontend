@@ -47,15 +47,14 @@ export default {
     }
   },
   mounted(){
-    const now = this.now
-    const milliseconds = this.milliseconds
-    this.getExpirationTime()
-    setInterval(() => {
-      const seconds = Math.floor(((milliseconds - now) / 1000))
-      const minutes = Math.floor(((milliseconds - now) / 1000) / 60)
-      const time = `${minutes}:${seconds}`
-      console.log('time', time)
-    }, 1000)
+    // const now = this.now
+    // const milliseconds = this.milliseconds
+    // setInterval(() => {
+    //   const seconds = Math.floor(((milliseconds - now) / 1000))
+    //   const minutes = Math.floor(((milliseconds - now) / 1000) / 60)
+    //   const time = `${minutes}:${seconds}`
+    //   console.log('time', time)
+    // }, 1000)
   }
 }
 </script>
