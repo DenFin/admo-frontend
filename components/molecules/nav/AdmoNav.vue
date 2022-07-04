@@ -2,8 +2,11 @@
   <nav class="bg-gray-500">
     <AdmoContainer>
       <ul>
-        <li class="nav-item inline-block" v-for="(item, index) in navItems" :key="index">
-          <nuxt-link class="block py-3 px-5 text-white" :to="item.to" >{{ item.text }}</nuxt-link>
+        <li class="nav-item" :class="{
+          'block': isMobile,
+          'inline-block': !isMobile,
+        }" v-for="(item, index) in navItems" :key="index">
+          <nuxt-link class="block py-3 px-5 text-white" :class="{'ml-4': isMobile }" :to="item.to" >{{ item.text }}</nuxt-link>
         </li>
       </ul>
     </AdmoContainer>
@@ -11,6 +14,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import AdmoContainer from "@/components/layout/AdmoContainer";
 export default {
   name: 'AdmoNav',
@@ -48,14 +52,14 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState('ui/breakpoints.store',['isMobile'])
   }
 }
 </script>
 
 <style>
-.nav-item:first-of-type {
- margin-left: -24px;
-}
 .nuxt-link-active {
   @apply underline
 }

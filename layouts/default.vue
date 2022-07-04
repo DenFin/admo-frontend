@@ -17,6 +17,15 @@ export default {
   },
   mounted(){
     if(!this.$store.state.auth.loggedIn) this.$router.push('/auth/login')
+    if(window !== 'undefined'){
+      this.getWindowWidth()
+      window.addEventListener('resize', this.getWindowWidth)
+    }
   },
+  methods: {
+    getWindowWidth(){
+      this.$store.dispatch('ui/breakpoints.store/setWindowWidth', window.innerWidth)
+    }
+  }
 }
 </script>
