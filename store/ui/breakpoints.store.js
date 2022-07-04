@@ -21,6 +21,5 @@ export const actions = {
       commit('SET_IS_MOBILE', false)
     }
   }
-
 }
 
