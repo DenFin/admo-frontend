@@ -1,5 +1,5 @@
 <template>
-  <div class="grid" :class="gridClasses">
+  <div class="md:grid" :class="gridClasses">
     <slot></slot>
   </div>
 </template>
