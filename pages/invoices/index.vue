@@ -11,7 +11,7 @@
       </AdmoContainer>
       <AdmoContainer>
         <AdmoTable>
-          <AdmoTableRow v-for="invoice in invoices" :key="invoice._id" class="grid grid-cols-5">
+          <AdmoTableRow v-for="invoice in invoices" :key="invoice._id" class="grid grid-cols-6">
             <AdmoTableCell >
               <template #text>
                 <nuxt-link :to="`/invoices/${invoice._id}`">{{ invoice.nr }}</nuxt-link>
@@ -21,6 +21,11 @@
             <AdmoTableCell :text="invoice.client" />
             <AdmoTableCell :text="invoice.date" />
             <AdmoTableCell :text="invoice.status" />
+            <AdmoTableCell>
+              <template #generic>
+                <AdmoButton text="Delete" button-type="button" @click.stop.native="deleteInvoice(invoice._id)" />
+              </template>
+            </AdmoTableCell>
           </AdmoTableRow>
         </AdmoTable>
       </AdmoContainer>
@@ -53,6 +58,17 @@ export default {
     AdmoOverlay, AdmoButton, AdmoHeadline, AdmoContainer, AdmoPanel, AdmoFormContactCreate
   },
   mixins: [hasOverlayMixin],
+  methods: {
+    async deleteInvoice(id){
+      const result = await this.$axios.delete(`/api/v1/invoices/${id}`)
+      if(result.status === 204) {
+        await this.reloadData('invoices')
+      }
+    },
+    async reloadData(apiEndpoint){
+      this.invoices = await this.$axios.$get(`/api/v1/${apiEndpoint}`)
+    }
+  },
   async asyncData({ $axios }){
     const invoices = await $axios.$get('/api/v1/invoices')
     return { invoices }
