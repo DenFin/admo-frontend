@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="self-center">
     <slot name="text"><span>{{ text }}</span></slot>
     <slot name="editable"></slot>
     <slot name="generic"></slot>

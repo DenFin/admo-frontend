@@ -24,7 +24,8 @@
         <div class="invoice__info">
           <div>
             <span class="font-bold">Rechnungsdatum</span><br>
-            <span>{{ invoice.generalInformation.invoiceDate }}</span>
+            <span v-if="invoice.generalInformation.invoiceDate">{{ getFormattedDate(invoice.generalInformation.invoiceDate, 'de-De', {year: 'numeric', month: 'numeric', day: 'numeric'})
+              }}</span>
           </div>
           <div>
             <span class="font-bold">Rechnungsnummer</span><br>
@@ -58,6 +59,7 @@
 </template>
 
 <script>
+import dateHelperMixin from "@/mixins/dateHelperMixin"
 export default {
   props: {
     invoice: {
@@ -68,7 +70,8 @@ export default {
       type: Array,
       required: true
     }
-  }
+  },
+  mixins: [dateHelperMixin]
 }
 </script>
 

@@ -5,12 +5,13 @@
         <div class="w-full inline-flex justify-between">
           <AdmoHeadline headline-type="h1" text="Invoices" />
           <div class="flex">
-            <AdmoButton to="/invoices/create" class="w-auto self-start mr-4" button-type="button" text="Create new invoice" />
+            <AdmoButton to="/invoices/create" class="w-auto self-start" button-type="button" text="Create new invoice" />
           </div>
         </div>
       </AdmoContainer>
       <AdmoContainer>
         <AdmoTable>
+          <AdmoTableHead :head-cells="headCells" />
           <AdmoTableRow v-for="invoice in invoices" :key="invoice._id" class="grid grid-cols-6">
             <AdmoTableCell >
               <template #text>
@@ -19,11 +20,15 @@
             </AdmoTableCell>
             <AdmoTableCell :text="invoice.title" />
             <AdmoTableCell :text="invoice.client" />
-            <AdmoTableCell :text="invoice.date" />
-            <AdmoTableCell :text="invoice.status" />
+            <AdmoTableCell v-if="invoice.date" :text="getFormattedDate(invoice.date)" />
             <AdmoTableCell>
               <template #generic>
-                <AdmoButton text="Delete" button-type="button" @click.stop.native="deleteInvoice(invoice._id)" />
+                <AdmoPill :text="invoice.status"></AdmoPill>
+              </template>
+            </AdmoTableCell>
+            <AdmoTableCell>
+              <template #generic>
+                <AdmoButton is-small text="Delete" button-type="button" :button-classes="'bg-red-600 mr-2'" @click.stop.native="deleteInvoice(invoice._id)" />
               </template>
             </AdmoTableCell>
           </AdmoTableRow>
@@ -49,16 +54,29 @@ import AdmoFormContactCreate from "@/components/molecules/forms/AdmoFormContactC
 import AdmoTable from "~/components/molecules/tables/AdmoTable";
 import AdmoTableRow from "~/components/molecules/tables/AdmoTableRow";
 import AdmoTableCell from "~/components/molecules/tables/AdmoTableCell";
+import AdmoPill from "@/components/atoms/AdmoPill";
+import { convertToLocaleDateString } from '~/modules/helpers/dateHelper';
+import AdmoTableHead from "@/components/molecules/tables/AdmoTableHead";
 
 export default {
   components: {
+    AdmoTableHead,
+    AdmoPill,
     AdmoTableCell,
     AdmoTableRow,
     AdmoTable,
     AdmoOverlay, AdmoButton, AdmoHeadline, AdmoContainer, AdmoPanel, AdmoFormContactCreate
   },
+  data(){
+    return {
+      headCells: ['Rechnungsnummer', 'Titel', 'Kunde', 'Rechnungsdatum', 'Status', 'Aktionen']
+    }
+  },
   mixins: [hasOverlayMixin],
   methods: {
+    getFormattedDate(date){
+      return convertToLocaleDateString(date)
+    },
     async deleteInvoice(id){
       const result = await this.$axios.delete(`/api/v1/invoices/${id}`)
       if(result.status === 204) {
