@@ -63,7 +63,7 @@
     <AdmoOverlay v-if="isActive">
       <AdmoFormContactCreate @reload-data="reloadData('invoices')" />
     </AdmoOverlay>
-
+    <AdmoNotification v-if="success" :text="`Rechnung ${invoice.generalInformation.invoiceNumber} wurde erfolgreich erstellt. PDF: ${downloadLink}`" />
   </div>
 </template>
 <script>
@@ -82,8 +82,10 @@ import AdmoBox from "@/components/molecules/boxes/AdmoBox";
 import AdmoInput from "@/components/atoms/AdmoInput";
 import AdmoTableCell from "@/components/molecules/tables/AdmoTableCell";
 import AdmoTextEditable from "@/components/atoms/AdmoTextEditable";
+import AdmoNotification from "@/components/molecules/notifications/AdmoNotification";
 export default {
   components: {
+    AdmoNotification,
     AdmoTextEditable,
     AdmoTableCell,
     AdmoInput,
@@ -120,7 +122,10 @@ export default {
           quantity: '4',
           total:  '240.00'
         }
-      ]
+      ],
+      success: false,
+      download: null,
+      downloadLink: null,
     }
   },
   methods: {
@@ -138,6 +143,13 @@ export default {
       console.log(e.target.value)
       this.invoice.generalInformation.client = e.target.value
     },
+    showSuccessMessage(pdf){
+      this.success = true
+      this.download = pdf.data.Key
+      setTimeout(() => {
+        this.success = false
+      }, 5000)
+    },
     async saveInvoice(){
       const invoice = {
         nr: this.invoice.generalInformation.invoiceNumber,
@@ -150,8 +162,14 @@ export default {
         items: JSON.stringify(this.rows)
       }
 
-      console.log(invoice)
       const result = await this.$axios.$post('/api/v1/invoices', invoice)
+      console.log(result)
+      if(result.pdf?.error === null) {
+        this.showSuccessMessage(result.pdf)
+      }
+      if(result.pdfLink) {
+        this.downloadLink = result.pdfLink.publicURL
+      }
       console.log('result', result)
       if(result.status === 201) {
         console.log('IT WORKED')
