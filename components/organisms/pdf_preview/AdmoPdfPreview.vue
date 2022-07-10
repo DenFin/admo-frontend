@@ -5,6 +5,7 @@
         <span class="font-bold">{{ invoice.generalInformation.client }}</span>
       </div>
       <div class="pdf-preview__sidebar">
+        <img class="logo ml-auto mb-[10mm]" :src="logoUrl" alt="">
         <div>
           <strong>Dennis Fink</strong><br>
           <span>Lüttringhauser Str. 53</span><br><br>
@@ -59,6 +60,7 @@
 </template>
 
 <script>
+import { mapState} from "vuex";
 import dateHelperMixin from "@/mixins/dateHelperMixin"
 export default {
   props: {
@@ -70,6 +72,9 @@ export default {
       type: Array,
       required: true
     }
+  },
+  computed: {
+    ...mapState('ui/settings.store', ['logoUrl'])
   },
   mixins: [dateHelperMixin]
 }

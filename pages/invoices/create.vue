@@ -15,6 +15,7 @@
           <div class="mb-4">
             <label class="block font-bold mb-2" for="">Kunde</label>
             <select @change="setClient($event)" class="block p-4 w-1/2" name="" id="">
+              <option disabled selected value="">Wählen Sie einen Kunden aus</option>
               <option v-for="client in clients" :key="client._id" :value="client.company">{{ client.company }}</option>
             </select>
           </div>

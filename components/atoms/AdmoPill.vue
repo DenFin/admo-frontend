@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     classesFromStatus(){
-      return this.text === 'pending' ? 'bg-yellow-300' : ''
+      return this.text === 'pending' ? 'bg-yellow-300' : 'bg-red-500'
     }
   }
 }
