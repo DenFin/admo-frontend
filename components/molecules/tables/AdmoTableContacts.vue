@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import AdmoButton from "@/components/atoms/AdmoButton";
 export default {
   components: { AdmoButton },
@@ -46,6 +47,9 @@ export default {
       type: Array,
       required: true
     }
+  },
+  computed: {
+    ...mapState('ui/overlay.store', ['deleteWarning'])
   },
   data(){
     return {
@@ -58,6 +62,11 @@ export default {
       this.$emit('open-overlay-edit', id)
     },
     async deleteContact(id){
+      if(!this.deleteWarning) {
+        this.$store.dispatch('ui/overlay.store/setDeleteWarning', true)
+        return
+      }
+      this.$store.dispatch('ui/overlay.store/setDeleteWarning', false)
       const result = await this.$axios.delete(`/api/v1/contacts/${id}`)
       if(result.status === 204) {
         this.$emit('reload-data')

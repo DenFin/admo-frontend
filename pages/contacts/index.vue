@@ -11,12 +11,21 @@
        </section>
      </AdmoContainer>
    </AdmoPanel>
-   <AdmoOverlay v-if="isActive">
-     <AdmoFormContactCreate @reload-data="reloadData('contacts')" />
+   <AdmoOverlay v-if="isActive || deleteWarning">
+     <AdmoFormContactCreate v-if="isActive" @reload-data="reloadData('contacts')" />
+     <div v-if="deleteWarning">
+       <h1 class="text-3xl font-bold text-center mb-1">Kontakt löschen?</h1>
+       <p class="text-center mb-5">Bist du sicher, dass du den Kontakt {{  }} löschen möchtest?</p>
+       <div class="text-center flex justify-center">
+         <AdmoButton class="mr-3" type="button" text="Cancel"></AdmoButton>
+         <AdmoButton type="button" text="Delete"></AdmoButton>
+       </div>
+     </div>
    </AdmoOverlay>
  </div>
 </template>
 <script>
+import {mapState} from "vuex";
 import hasOverlayMixin from "@/pages/hasOverlayMixin"
 import AdmoContainer from "@/components/layout/AdmoContainer";
 import AdmoHeadline from "@/components/atoms/AdmoHeadline";
@@ -30,6 +39,9 @@ import isEmptyObject from "@/modules/helpers/isEmptyObject";
 export default {
   components: { AdmoOverlay, AdmoPanel, AdmoFormContactCreate, AdmoHeadline, AdmoContainer, AdmoButton, AdmoTableContacts },
   mixins: [hasOverlayMixin],
+  computed: {
+    ...mapState('ui/overlay.store', ['deleteWarning'])
+  },
   async asyncData({ $axios }) {
     const contacts = await $axios.$get('/api/v1/contacts')
     return { contacts }

@@ -1,14 +1,18 @@
 import { shallowMount } from "@vue/test-utils";
 import IndexPage from "~/pages/index"
 
+const authMock = {
+  loggedIn: true
+};
 
-describe('IndePage', () => {
+describe('IndexPage', () => {
 
   test('random should return 2', () => {
-    const wrapper = shallowMount(IndexPage)
-    wrapper.setData({
-      number: 2
+    const wrapper = shallowMount(IndexPage, {
+      mocks: {
+        $auth: authMock
+      }
     })
-    expect(wrapper.vm.random).toEqual(2)
+    expect(wrapper.vm).toBeTruthy()
   })
 })

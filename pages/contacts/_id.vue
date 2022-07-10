@@ -17,7 +17,7 @@ import dateHelperMixin from "@/mixins/dateHelperMixin";
 import AdmoBox from "@/components/molecules/boxes/AdmoBox";
 
 export default {
-  components: {AdmoBox, AdmoHeadline, AdmoContainer, AdmoPanel },
+  components: { AdmoBox, AdmoHeadline, AdmoContainer, AdmoPanel },
   mixins: [dateHelperMixin],
   async asyncData({ params, $axios }) {
     const id = params.id
