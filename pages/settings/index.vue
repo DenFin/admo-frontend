@@ -32,7 +32,8 @@
             <AdmoInput
               class="inline-block w-full mb-0"
               input-type="text"
-              :value="generalInformation.generalInformation"
+              v-model="generalInformation.companyName"
+              :placeholder-text="companyName"
             />
             <AdmoButton
               button-type="button"
@@ -48,7 +49,7 @@
             <AdmoInput
               class="inline-block w-full mb-0"
               input-type="text"
-              value="untype"
+              v-model="generalInformation.companyStreet"
             />
             <AdmoButton
               button-type="button"
@@ -64,7 +65,7 @@
             <AdmoInput
               class="inline-block w-full mb-0"
               input-type="text"
-              value="untype"
+              v-model="generalInformation.companyCity"
             />
             <AdmoButton
               button-type="button"
@@ -80,7 +81,7 @@
             <AdmoInput
               class="inline-block w-full mb-0"
               input-type="text"
-              value="untype"
+              v-model="generalInformation.companyZip"
             />
             <AdmoButton
               button-type="button"
@@ -96,7 +97,7 @@
             <AdmoInput
               class="inline-block w-full mb-0"
               input-type="text"
-              value="untype"
+              v-model="generalInformation.taxNumber"
             />
             <AdmoButton
               button-type="button"
@@ -106,13 +107,13 @@
             />
           </div>
         </div>
-        <div class="w-01/2">
+        <div class="w-1/2">
           <span class="font-bold block">Umsatzsteuer-ID</span>
           <div class="flex">
             <AdmoInput
               class="inline-block w-full mb-0"
               input-type="text"
-              value="untype"
+              v-model="generalInformation.taxId"
             />
             <AdmoButton
               button-type="button"
@@ -122,11 +123,13 @@
             />
           </div>
         </div>
+        <AdmoButton @click.native="saveSettings" text="Speichern" button-type="button" class="mt-8 bg-green-500 border-green-500" />
       </AdmoBox>
     </AdmoContainer>
   </AdmoPanel>
 </template>
 <script>
+import {mapState} from "vuex";
 import { createClient } from '@supabase/supabase-js'
 import AdmoPanel from '@/components/layout/AdmoPanel'
 import AdmoContainer from '@/components/layout/AdmoContainer'
@@ -148,6 +151,9 @@ export default {
     AdmoContainer,
     AdmoPanel,
   },
+  computed: {
+    ...mapState('data/settings.store', ['companyName'])
+  },
   async asyncData({ $axios }) {
     const { data } = await $axios('/api/v1/settings/general-information')
     const generalInformation = data[0]
@@ -156,6 +162,15 @@ export default {
   data() {
     return {
       logo: null,
+      generalInformation: {
+        logoUrl: null,
+        companyName: this.companyName || null,
+        companyStreet: null,
+        companyCity: null,
+        companyZip: null,
+        taxNumber: null,
+        taxId: null
+      }
     }
   },
   methods: {
@@ -193,6 +208,13 @@ export default {
         // await this.$axios.$post('api/v1/settings/general-information/logo')
       }
     },
+    async saveSettings(){
+      const result = await this.$axios.post('/api/v1/settings/general-information', this.generalInformation)
+      const { data } = result
+      if(result.status === 201) {
+        this.$store.dispatch('data/settings.store/setCompanyName', data.generalInformation.companyName)
+      }
+    }
   },
 }
 </script>
