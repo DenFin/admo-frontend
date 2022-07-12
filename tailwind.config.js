@@ -2,7 +2,7 @@ module.exports = {
   mode: 'jit',
   theme: {
     fontFamily: {
-      'sans': ['"Open Sans"']
-    }
-  }
+      sans: ['"Open Sans"'],
+    },
+  },
 }

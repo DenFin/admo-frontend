@@ -1,5 +1,5 @@
-import Vuex from "vuex"
-import { createLocalVue } from "@vue/test-utils"
+import Vuex from 'vuex'
+import { createLocalVue } from '@vue/test-utils'
 
 describe('store/ui/overlay', () => {
   const localVue = createLocalVue()
@@ -31,6 +31,4 @@ describe('store/ui/overlay', () => {
   //
   //
   // })
-
-
 })

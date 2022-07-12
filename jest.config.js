@@ -1,5 +1,5 @@
 module.exports = {
-  //globalSetup: "<rootDir>/__jest.setup.js", //https://medium.com/@brandonaaskov/how-to-test-nuxt-stores-with-jest-9a5d55d54b28
+  // globalSetup: "<rootDir>/__jest.setup.js", //https://medium.com/@brandonaaskov/how-to-test-nuxt-stores-with-jest-9a5d55d54b28
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',

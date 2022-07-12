@@ -1,20 +1,23 @@
 <template>
   <AdmoPanel>
     <AdmoContainer>
-      <AdmoHeadline headline-type="h1" :text="`${contact.firstname} ${contact.lastname}`"></AdmoHeadline>
+      <AdmoHeadline
+        headline-type="h1"
+        :text="`${contact.firstname} ${contact.lastname}`"
+      ></AdmoHeadline>
       <AdmoBox>
-        <span class="font-bold">Geburtstag:</span><br>
+        <span class="font-bold">Geburtstag:</span><br />
         <span>{{ getFormattedDate(contact.dob) }}</span>
       </AdmoBox>
     </AdmoContainer>
   </AdmoPanel>
 </template>
 <script>
-import AdmoPanel from "@/components/layout/AdmoPanel";
-import AdmoContainer from "@/components/layout/AdmoContainer";
-import AdmoHeadline from "@/components/atoms/AdmoHeadline";
-import dateHelperMixin from "@/mixins/dateHelperMixin";
-import AdmoBox from "@/components/molecules/boxes/AdmoBox";
+import AdmoPanel from '@/components/layout/AdmoPanel'
+import AdmoContainer from '@/components/layout/AdmoContainer'
+import AdmoHeadline from '@/components/atoms/AdmoHeadline'
+import dateHelperMixin from '@/mixins/dateHelperMixin'
+import AdmoBox from '@/components/molecules/boxes/AdmoBox'
 
 export default {
   components: { AdmoBox, AdmoHeadline, AdmoContainer, AdmoPanel },
@@ -25,6 +28,6 @@ export default {
     const contact = data
     console.log('context', id, data)
     return { contact }
-  }
+  },
 }
 </script>

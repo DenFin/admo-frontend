@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import AdmoFormLogin from "~/components/molecules/forms/AdmoFormLogin";
+import AdmoFormLogin from '~/components/molecules/forms/AdmoFormLogin'
 
 describe('AdmoFormLogin', () => {
   test('is a Vue instance', () => {

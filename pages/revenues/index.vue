@@ -6,10 +6,10 @@
   </AdmoPanel>
 </template>
 <script>
-import AdmoPanel from "@/components/layout/AdmoPanel";
-import AdmoContainer from "@/components/layout/AdmoContainer";
-import AdmoHeadline from "@/components/atoms/AdmoHeadline";
+import AdmoPanel from '@/components/layout/AdmoPanel'
+import AdmoContainer from '@/components/layout/AdmoContainer'
+import AdmoHeadline from '@/components/atoms/AdmoHeadline'
 export default {
-  components: {AdmoHeadline, AdmoContainer, AdmoPanel}
+  components: { AdmoHeadline, AdmoContainer, AdmoPanel },
 }
 </script>

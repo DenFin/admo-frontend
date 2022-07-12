@@ -1,5 +1,14 @@
 <template>
-  <input v-bind:value="value" v-on:input="updateValue($event.target.value)" class="shadow-md p-2 focus:border-4 focus:border-solid focus:border-slate-200 block" :type="inputType">
+  <input
+    :min="min"
+    :value="value"
+    class="p-2 focus:border-4 focus:border-solid focus:border-slate-200 block"
+    :class="{
+      'shadow-md ': !noShadow,
+    }"
+    :type="inputType"
+    @input="updateValue($event.target.value)"
+  />
 </template>
 
 <script>
@@ -8,21 +17,29 @@ export default {
     inputType: {
       type: String,
       required: true,
-      default: 'text'
+      default: 'text',
     },
     placeholderText: {
       type: String,
       required: false,
     },
     value: {
-      type: String
-    }
+      type: String,
+    },
+    min: {
+      type: String,
+    },
+    noShadow: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 
   methods: {
     updateValue(value) {
       this.$emit('input', value)
-    }
-  }
+    },
+  },
 }
 </script>

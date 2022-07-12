@@ -10,19 +10,19 @@ export default {
   props: {
     gridColumns: {
       type: String,
-      required: true
+      required: true,
     },
     gridSchema: {
       type: String,
     },
     gridGap: {
       type: String,
-    }
+    },
   },
   computed: {
-    gridClasses(){
+    gridClasses() {
       return `grid-cols-${this.gridColumns} gap-${this.gridGap}`
-    }
-  }
+    },
+  },
 }
 </script>

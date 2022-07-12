@@ -1,6 +1,6 @@
-export default function({ store, redirect }) {
+export default function ({ store, redirect }) {
   if (!store.state.auth.loggedIn) {
     console.log('MIDDLEWAAAAARE')
-    return redirect("/auth/login");
+    return redirect('/auth/login')
   }
 }
