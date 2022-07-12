@@ -66,10 +66,9 @@ export default {
   },
   env: {
     SUPABASE_API_KEY:
-      process.env.SUPABASE_API_KEY ||
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1sbXZzbnBzamNvb2ZmcGNyZnFkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY1Njg1MTE2MCwiZXhwIjoxOTcyNDI3MTYwfQ.jW2qbdQBT4uQeIsAYXa_ZwVcP2OiesUWT7Qt63Oqz44',
+      process.env.SUPABASE_API_KEY,
     SUPABASE_URL:
-      process.env.SUPABASE_URL || 'https://mlmvsnpsjcooffpcrfqd.supabase.co',
+      process.env.SUPABASE_URL
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
