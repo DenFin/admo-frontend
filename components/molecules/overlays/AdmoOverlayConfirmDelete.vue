@@ -1,9 +1,9 @@
 <template>
   <div class="rounded overflow-hidden mx-auto">
     <div class="bg-white border-t-4 border-red-500 p-12 max-w-2xl relative">
-      <h1 class="text-3xl font-bold text-center mb-4">Kontakt löschen?</h1>
+      <h1 class="text-3xl font-bold text-center mb-4">{{ contentType }} löschen?</h1>
       <p class="text-center text-gray-600 mb-16 px-8">
-        Bist du sicher, dass du den Kontakt {{ deleteItemId }} löschen möchtest?
+        Bist du sicher, dass du den {{ contentType }} {{ deleteItemId }} löschen möchtest?
       </p>
       <div class="text-center flex justify-center">
         <AdmoButton
@@ -32,8 +32,15 @@ import AdmoButton from '@/components/atoms/AdmoButton'
 export default {
   components: { AdmoButton },
   mixins: [deleteContactById, closeOverlay],
+  props: {
+    contentType: {
+      type: String,
+      required: true,
+    }
+  },
   computed: {
     ...mapState('ui/overlay.store', ['deleteItemId']),
+
   },
 }
 </script>

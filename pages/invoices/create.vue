@@ -78,6 +78,7 @@
       <AdmoContainer class="mb-16">
         <AdmoTableHead :head-cells="headCells" />
         <AdmoInvoiceRow v-for="(row, index) in rows" :row="row" :key="index"  />
+        <AdmoInvoiceFoot />
         <div class="flex">
           <AdmoButton
             class="mt-4 mr-4"
@@ -128,8 +129,10 @@ import AdmoBox from '@/components/molecules/boxes/AdmoBox'
 import AdmoInput from '@/components/atoms/AdmoInput'
 import AdmoNotification from '@/components/molecules/notifications/AdmoNotification'
 import AdmoInvoiceRow from '@/components/organisms/invoices/AdmoInvoiceRow'
+import AdmoInvoiceFoot from "@/components/organisms/invoices/AdmoInvoiceFoot";
 export default {
   components: {
+    AdmoInvoiceFoot,
     AdmoInvoiceRow,
     AdmoNotification,
     AdmoInput,
@@ -235,6 +238,7 @@ export default {
     async createPDF() {},
   },
   mounted(){
+    console.log('this', this)
     // eslint-disable-next-line
     if (process.client) {
       document.addEventListener('scroll', () => { console.log("SHJFKSFJKSH")})

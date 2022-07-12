@@ -32,6 +32,7 @@
       />
       <AdmoOverlayConfirmDelete
         v-if="deleteWarning"
+        content-type="Kontakt"
         @reload-data="reloadData('contacts')"
       />
     </AdmoOverlay>

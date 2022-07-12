@@ -56,13 +56,20 @@
         </AdmoTable>
       </AdmoContainer>
     </AdmoPanel>
-    <AdmoOverlay v-if="isActive">
-      <AdmoFormContactCreate @reload-data="reloadData('invoices')" />
+    <AdmoOverlay v-if="isActive || deleteWarning">
+      <AdmoFormContactCreate v-if="isActive" @reload-data="reloadData('invoices')" />
+      <AdmoOverlayConfirmDelete
+        v-if="deleteWarning"
+        content-type="Rechnung"
+        @reload-data="reloadData('invoices')"
+      />
     </AdmoOverlay>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import hasOverlayMixin from '@/mixins/overlay/hasOverlayMixin'
+import deleteInvoiceById from "@/mixins/invoices/deleteInvoiceById";
 import AdmoPanel from '@/components/layout/AdmoPanel'
 import AdmoContainer from '@/components/layout/AdmoContainer'
 import AdmoHeadline from '@/components/atoms/AdmoHeadline'
@@ -75,9 +82,11 @@ import AdmoTableCell from '~/components/molecules/tables/AdmoTableCell'
 import AdmoPill from '@/components/atoms/AdmoPill'
 import { convertToLocaleDateString } from '~/modules/helpers/dateHelper'
 import AdmoTableHead from '@/components/molecules/tables/AdmoTableHead'
+import AdmoOverlayConfirmDelete from "@/components/molecules/overlays/AdmoOverlayConfirmDelete";
 
 export default {
   components: {
+    AdmoOverlayConfirmDelete,
     AdmoTableHead,
     AdmoPill,
     AdmoTableCell,
@@ -90,7 +99,8 @@ export default {
     AdmoPanel,
     AdmoFormContactCreate,
   },
-  mixins: [hasOverlayMixin],
+  mixins: [hasOverlayMixin, deleteInvoiceById],
+
   async asyncData({ $axios }) {
     const invoices = await $axios.$get('/api/v1/invoices')
     return { invoices }
@@ -108,6 +118,7 @@ export default {
     }
   },
   computed: {
+    ...mapState('ui/overlay.store', ['deleteWarning']),
     invoicesSorted() {
       const invoicesSorted = this.invoices
       return invoicesSorted.sort((a, b) => {
@@ -118,12 +129,6 @@ export default {
   methods: {
     getFormattedDate(date) {
       return convertToLocaleDateString(date)
-    },
-    async deleteInvoice(id) {
-      const result = await this.$axios.delete(`/api/v1/invoices/${id}`)
-      if (result.status === 204) {
-        await this.reloadData('invoices')
-      }
     },
     async reloadData(apiEndpoint) {
       this.invoices = await this.$axios.$get(`/api/v1/${apiEndpoint}`)
