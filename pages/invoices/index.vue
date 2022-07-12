@@ -44,7 +44,7 @@
 </template>
 <script>
 
-import hasOverlayMixin from "@/pages/hasOverlayMixin"
+import hasOverlayMixin from "@/mixins/overlay/hasOverlayMixin"
 import AdmoPanel from "@/components/layout/AdmoPanel";
 import AdmoContainer from "@/components/layout/AdmoContainer";
 import AdmoHeadline from "@/components/atoms/AdmoHeadline";
