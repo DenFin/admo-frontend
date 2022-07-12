@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import hasOverlayMixin from "@/pages/hasOverlayMixin"
+import hasOverlayMixin from "@/mixins/overlay/hasOverlayMixin"
 import AdmoContainer from "@/components/layout/AdmoContainer";
 import AdmoHeadline from "@/components/atoms/AdmoHeadline";
 import AdmoButton from "@/components/atoms/AdmoButton";

@@ -1,5 +1,12 @@
 <template>
-  <nuxt-link v-if="to" :to="to" class="bg-blue-600 text-white font-bold px-4 py-3 block">{{ text }}</nuxt-link>
+  <nuxt-link v-if="to" :to="to" :class="[
+    buttonClasses,
+    {
+      'bg-blue-600 text-white font-bold px-4 py-3 block ': !buttonClasses,
+      'py-1 px-2': isSmall,
+      'py-3 px-4': !isSmall,
+    }
+  ]">{{ text }}</nuxt-link>
   <button v-else :type="buttonType" class="text-white font-bold block" :class="[
     buttonClasses,
     {

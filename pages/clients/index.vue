@@ -4,7 +4,7 @@
       <AdmoContainer>
         <div class="flex justify-between">
           <AdmoHeadline headline-type="h1" text="Clients"/>
-          <AdmoButton @click.native="openOverlay" class="w-auto self-start" button-type="button" text="Create new client" />
+          <AdmoButton @click.native="openOverlay" class="w-auto self-start" button-type="button" button-classes="border-2 border-black text-black font-bold" text="Create new client" />
         </div>
       </AdmoContainer>
       <AdmoContainer>
@@ -30,7 +30,7 @@ import AdmoContainer from "@/components/layout/AdmoContainer";
 import AdmoHeadline from "@/components/atoms/AdmoHeadline";
 import AdmoButton from "@/components/atoms/AdmoButton";
 import AdmoOverlay from "@/components/molecules/overlays/AdmoOverlay";
-import hasOverlayMixin from "@/pages/hasOverlayMixin";
+import hasOverlayMixin from "@/mixins/overlay/hasOverlayMixin";
 import AdmoCreateClientForm from "@/components/organisms/forms/create_client_form/AdmoCreateClientForm";
 import AdmoTable from "@/components/molecules/tables/AdmoTable";
 import AdmoTableHead from "@/components/molecules/tables/AdmoTableHead";

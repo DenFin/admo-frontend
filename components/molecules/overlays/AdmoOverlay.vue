@@ -14,21 +14,11 @@
   </div>
 </template>
 <script>
+import closeOverlay from "@/mixins/overlay/closeOverlay";
 import AdmoContainer from "@/components/layout/AdmoContainer";
-import isEmptyObject from "@/modules/helpers/isEmptyObject";
+
 export default {
   components: {AdmoContainer},
-  methods: {
-    closeOverlay(){
-      const path = this.$route.path
-      this.$store.dispatch('ui/overlay.store/setActive', false)
-      this.$store.dispatch('ui/overlay.store/setDeleteWarning', false)
-      if(!isEmptyObject(this.$route.query)) {
-        console.log(this.$route.query)
-        this.$router.replace({ path, query: ''})
-      }
-
-    }
-  }
+  mixins: [closeOverlay]
 }
 </script>

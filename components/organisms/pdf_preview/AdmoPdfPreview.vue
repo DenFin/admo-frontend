@@ -17,8 +17,6 @@
           <span>Volksbank Euskirchen</span><br>
           <span>IBAN: DE06 3826 0082 6606 7460 14</span><br>
           <span>BIC: GENODED1EVB</span><br><br>
-
-
         </div>
       </div>
       <div class="pdf-preview__pre-content">
