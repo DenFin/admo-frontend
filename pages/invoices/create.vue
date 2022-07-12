@@ -77,7 +77,7 @@
       </AdmoContainer>
       <AdmoContainer class="mb-16">
         <AdmoTableHead :head-cells="headCells" />
-        <AdmoInvoiceRow v-for="(row, index) in rows" :row="row" :key="index"  />
+        <AdmoInvoice :rows="rows" />
         <AdmoInvoiceFoot />
         <div class="flex">
           <AdmoButton
@@ -112,6 +112,7 @@
       v-if="success"
       :text="`Rechnung ${invoice.generalInformation.invoiceNumber} wurde erfolgreich erstellt. PDF: ${downloadLink}`"
     />
+    <AdmoSpinner v-if="loading" />
   </div>
 </template>
 <script>
@@ -128,12 +129,13 @@ import AdmoPdfPreview from '@/components/organisms/pdf_preview/AdmoPdfPreview'
 import AdmoBox from '@/components/molecules/boxes/AdmoBox'
 import AdmoInput from '@/components/atoms/AdmoInput'
 import AdmoNotification from '@/components/molecules/notifications/AdmoNotification'
-import AdmoInvoiceRow from '@/components/organisms/invoices/AdmoInvoiceRow'
 import AdmoInvoiceFoot from "@/components/organisms/invoices/AdmoInvoiceFoot";
+import AdmoSpinner from '@/components/atoms/AdmoSpinner'
+import AdmoInvoice from "@/components/organisms/invoices/AdmoInvoice";
 export default {
   components: {
+    AdmoInvoice,
     AdmoInvoiceFoot,
-    AdmoInvoiceRow,
     AdmoNotification,
     AdmoInput,
     AdmoBox,
@@ -145,6 +147,7 @@ export default {
     AdmoContainer,
     AdmoPanel,
     AdmoFormContactCreate,
+    AdmoSpinner
   },
   mixins: [hasOverlayMixin],
   computed: {
@@ -186,6 +189,7 @@ export default {
       success: false,
       download: null,
       downloadLink: null,
+      loading: false,
     }
   },
   methods: {
@@ -211,6 +215,7 @@ export default {
       }, 5000)
     },
     async saveInvoice() {
+      this.loading = true
       const invoice = {
         nr: this.invoice.generalInformation.invoiceNumber,
         client: this.invoice.generalInformation.client,
@@ -232,16 +237,15 @@ export default {
       }
       console.log('result', result)
       if (result.status === 201) {
+        this.loading = false
         console.log('IT WORKED')
       }
     },
     async createPDF() {},
   },
   mounted(){
-    console.log('this', this)
     // eslint-disable-next-line
     if (process.client) {
-      document.addEventListener('scroll', () => { console.log("SHJFKSFJKSH")})
       document.addEventListener('keydown', (e) => {
         console.log('TEST')
         const evtobj = window.event? event : e

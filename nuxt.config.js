@@ -65,10 +65,8 @@ export default {
     },
   },
   env: {
-    SUPABASE_API_KEY:
-      process.env.SUPABASE_API_KEY,
-    SUPABASE_URL:
-      process.env.SUPABASE_URL
+    SUPABASE_API_KEY: process.env.SUPABASE_API_KEY,
+    SUPABASE_URL: process.env.SUPABASE_URL,
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

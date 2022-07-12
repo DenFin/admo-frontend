@@ -21,7 +21,7 @@
         />
       </template>
     </AdmoTableCell>
-    <AdmoTableCell class="text-right pr-4" :text="rowTotal" />
+    <AdmoTableCell class="text-right pr-4" :text="rowTotalFormatted" />
   </AdmoTableRow>
 </template>
 <script>
@@ -45,23 +45,16 @@ export default {
   },
   watch: {
     rowTotal(newVal, oldVal){
-      const newValue = newVal.replace(/\D/g,'');
-      const oldValue = oldVal.replace(/\D/g,'');
-      console.log('new', newVal)
-      console.log('newValue', newValue)
-
-
-      console.log('row total changed')
-      console.log('old', parseFloat(oldValue))
-
-      const diff = parseFloat(newValue) - parseFloat(oldValue)
-      console.log('diff', diff)
+      const diff = parseFloat(newVal) - parseFloat(oldVal)
       this.$store.dispatch('ui/invoice.store/addToTotal', parseFloat(diff))
     }
   },
   computed: {
     rowTotal(){
-      return numberWithThousandSeperator(replaceDotWithComma(parseFloat(this.rowPrice * this.rowQuantity).toFixed(2)).toString()) + ` €` || 0
+      return parseFloat(parseFloat(this.rowPrice) * parseFloat(this.rowQuantity)).toFixed(2)
+    },
+    rowTotalFormatted(){
+      return numberWithThousandSeperator(replaceDotWithComma(this.rowTotal).toString()) + ` €` || 0
     }
   },
 }

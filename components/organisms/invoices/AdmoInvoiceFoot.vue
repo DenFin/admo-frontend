@@ -39,10 +39,5 @@ export default {
     },
 
   },
-  methods: {
-    chainTest(){
-      console.log(this)
-    }
-  }
 }
 </script>
