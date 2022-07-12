@@ -59,8 +59,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .nuxt-link-active {
   @apply underline
+}
+
+ul li:first-of-type a {
+  padding-left: 0;
 }
 </style>

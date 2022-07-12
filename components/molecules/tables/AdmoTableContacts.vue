@@ -26,9 +26,7 @@
           <div>{{ contact.zip }}</div>
           <div class="">
             <div class="flex">
-              <AdmoButton button-type="button" :button-classes="'bg-gray-600 mr-2'"  @click.stop.native="editContact(contact._id)" is-small text="Edit"/>
-              <AdmoButton button-type="button" :button-classes="'bg-red-600 mr-2'" @click.stop.native="deleteContact(contact._id)" is-small text="Delete"/>
-              <AdmoButton button-type="button" :button-classes="'bg-gray-600'" text="Duplicate"  is-small />
+              <AdmoButton button-type="button" :button-classes="'bg-red-600 text-white'" @click.stop.native="deleteContact(contact._id)" is-small text="Delete"/>
             </div>
           </div>
         </div>
@@ -38,18 +36,17 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import AdmoButton from "@/components/atoms/AdmoButton";
+import deleteContactById from '~/mixins/contacts/deleteContactById'
+
 export default {
   components: { AdmoButton },
+  mixins: [deleteContactById],
   props: {
     contacts: {
       type: Array,
       required: true
     }
-  },
-  computed: {
-    ...mapState('ui/overlay.store', ['deleteWarning'])
   },
   data(){
     return {
@@ -61,17 +58,7 @@ export default {
       this.$router.replace({path: '/contacts', query: { id }})
       this.$emit('open-overlay-edit', id)
     },
-    async deleteContact(id){
-      if(!this.deleteWarning) {
-        this.$store.dispatch('ui/overlay.store/setDeleteWarning', true)
-        return
-      }
-      this.$store.dispatch('ui/overlay.store/setDeleteWarning', false)
-      const result = await this.$axios.delete(`/api/v1/contacts/${id}`)
-      if(result.status === 204) {
-        this.$emit('reload-data')
-      }
-    }
+
   }
 }
 </script>

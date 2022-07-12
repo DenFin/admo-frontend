@@ -1,6 +1,7 @@
 export const state = () => ({
   isActive: false,
-  deleteWarning: false
+  deleteWarning: false,
+  deleteItemId: null
 })
 
 export const mutations = {
@@ -9,6 +10,9 @@ export const mutations = {
   },
   SET_DELETE_WARNING(state, bool) {
     state.deleteWarning = bool
+  },
+  SET_DELETE_ITEM_ID(state, id) {
+    state.deleteItemId = id
   }
 }
 
@@ -18,5 +22,8 @@ export const actions = {
   },
   setDeleteWarning({ commit }, bool) {
     commit('SET_DELETE_WARNING', bool)
+  },
+  setDeleteItemId({ commit }, id) {
+    commit('SET_DELETE_ITEM_ID', id)
   }
 }
