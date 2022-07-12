@@ -5,14 +5,14 @@
         <div class="w-full inline-flex justify-between">
           <AdmoHeadline headline-type="h1" text="Invoices" />
           <div class="flex">
-            <AdmoButton to="/invoices/create" class="w-auto self-start" button-type="button" text="Create new invoice" />
+            <AdmoButton to="/invoices/create" class="w-auto self-start" buttonClasses="bg-white border-2 border-black font-bold" button-type="button" text="Create new invoice" />
           </div>
         </div>
       </AdmoContainer>
       <AdmoContainer>
         <AdmoTable>
           <AdmoTableHead :head-cells="headCells" />
-          <AdmoTableRow v-for="invoice in invoices" :key="invoice._id" class="grid grid-cols-6">
+          <AdmoTableRow v-for="invoice in invoicesSorted" :key="invoice._id" class="grid grid-cols-6">
             <AdmoTableCell >
               <template #text>
                 <nuxt-link :to="`/invoices/${invoice._id}`">{{ invoice.nr }}</nuxt-link>
@@ -44,7 +44,7 @@
 </template>
 <script>
 
-import hasOverlayMixin from "@/pages/hasOverlayMixin"
+import hasOverlayMixin from "@/mixins/overlay/hasOverlayMixin"
 import AdmoPanel from "@/components/layout/AdmoPanel";
 import AdmoContainer from "@/components/layout/AdmoContainer";
 import AdmoHeadline from "@/components/atoms/AdmoHeadline";
@@ -70,6 +70,14 @@ export default {
   data(){
     return {
       headCells: ['Rechnungsnummer', 'Titel', 'Kunde', 'Rechnungsdatum', 'Status', 'Aktionen']
+    }
+  },
+  computed: {
+    invoicesSorted(){
+      const invoicesSorted = this.invoices
+      return invoicesSorted.sort((a,b) => {
+        return new Date(a.date) - new Date(b.date)
+      })
     }
   },
   mixins: [hasOverlayMixin],
