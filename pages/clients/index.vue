@@ -21,7 +21,11 @@
             :key="client._id"
             class="grid grid-cols-4"
           >
-            <AdmoTableCell :text="client.company" />
+            <AdmoTableCell>
+              <template #generic>
+                <nuxt-link :to="`clients/${client._id}`">{{ client.company }}</nuxt-link>
+              </template>
+            </AdmoTableCell>
             <AdmoTableCell :text="client.street" />
             <AdmoTableCell :text="client.city" />
             <AdmoTableCell :text="client.zip" />

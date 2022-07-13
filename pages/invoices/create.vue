@@ -71,7 +71,7 @@
             <label class="block font-bold mb-2" for=""
               >Ust.-Id. vom Kunden</label
             >
-            <AdmoInput input-type="text" class="w-1/2" />
+            <AdmoInput disabled input-type="text" class="w-1/2" v-if="currentClient" :value="currentClient.taxId" />
           </div>
         </AdmoBox>
       </AdmoContainer>
@@ -190,6 +190,7 @@ export default {
       download: null,
       downloadLink: null,
       loading: false,
+      currentClient: null,
     }
   },
   methods: {
@@ -206,6 +207,7 @@ export default {
     setClient(e) {
       console.log(e.target.value)
       this.invoice.generalInformation.client = e.target.value
+      this.currentClient = this.clients.find(client => client.company === e.target.value)
     },
     showSuccessMessage(pdf) {
       this.success = true
