@@ -34,9 +34,16 @@ export default {
     AdmoCardGeneral,
     AdmoGrid,
   },
-  async asyncData({ $axios, $config: { baseURL } }) {
-    const { data } = await $axios.get(`/api/v1/contacts/count`)
-    const contactsCount = data
+  async asyncData({ $axios, store, $config: { baseURL } }) {
+    const userId = store.state.auth.user.id
+    const dataContactsCount = await $axios.get(`/api/v1/contacts/count`)
+    const dataSettings = await $axios.get(`/api/v1/settings/${userId}`)
+
+    if(dataSettings.status === 200) {
+      const { data } = dataSettings
+      store.dispatch('data/settings.store/setSettings', data)
+    }
+    const contactsCount = dataContactsCount.data
     return { contactsCount }
   },
   data() {
@@ -46,16 +53,6 @@ export default {
         this.$auth.strategy.token.$storage._state['_token_expiration.local'],
       now: new Date(),
     }
-  },
-  mounted() {
-    // const now = this.now
-    // const milliseconds = this.milliseconds
-    // setInterval(() => {
-    //   const seconds = Math.floor(((milliseconds - now) / 1000))
-    //   const minutes = Math.floor(((milliseconds - now) / 1000) / 60)
-    //   const time = `${minutes}:${seconds}`
-    //   console.log('time', time)
-    // }, 1000)
   },
   methods: {
     getExpirationTime() {

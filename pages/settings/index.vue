@@ -8,7 +8,7 @@
           headline-type="h2"
           text="General information"
         />
-        <div class="mb-4 w-1/2">
+        <div v-if="!settings.generalInformation.logoUrl" class="mb-4 w-1/2">
           <span class="font-bold block">Logo</span>
           <div class="flex w-full">
             <AdmoInput
@@ -26,6 +26,10 @@
             />
           </div>
         </div>
+        <div v-else class="mb-4 w-1/2">
+          <span class="font-bold block">Logo</span>
+          <img :src="settings.generalInformation.logoUrl" alt="">
+        </div>
         <div class="mb-4 w-1/2">
           <span class="font-bold block">Business name</span>
           <div class="flex w-full">
@@ -33,7 +37,7 @@
               class="inline-block w-full mb-0"
               input-type="text"
               v-model="generalInformation.companyName"
-              :placeholder-text="companyName"
+              :placeholder-text="settings.generalInformation.logoUrl"
             />
             <AdmoButton
               button-type="button"
@@ -152,7 +156,8 @@ export default {
     AdmoPanel,
   },
   computed: {
-    ...mapState('data/settings.store', ['companyName'])
+    ...mapState('data/settings.store', ['companyName']),
+    ...mapState('data/settings.store', ['settings'])
   },
   async asyncData({ $axios }) {
     const { data } = await $axios('/api/v1/settings/general-information')
@@ -202,10 +207,13 @@ export default {
         console.log(errorGetPublicUrl)
         return
       }
+      const userId = `62b5f460bb9be555931017a9`
 
       if (publicURL) {
+        const body = {userId, publicURL}
+        console.log(body)
         this.$store.dispatch('ui/settings.store/setLogoUrl', publicURL)
-        // await this.$axios.$post('api/v1/settings/general-information/logo')
+        await this.$axios.post('api/v1/settings/logo', body)
       }
     },
     async saveSettings(){

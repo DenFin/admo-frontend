@@ -165,6 +165,11 @@ export default {
       return { clients }
     }
   },
+  watch: {
+    currentClient(){
+      this.invoice.generalInformation.client = this.currentClient
+    }
+  },
   data() {
     return {
       headCells: ['Position', 'Beschreibung', 'Satz', 'Menge', 'Gesamt'],

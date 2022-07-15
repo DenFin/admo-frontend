@@ -1,8 +1,10 @@
 <template>
-  <div class="pdf-preview shadow-xl mx-auto">
+  <div v-if="invoice.generalInformation.client" class="pdf-preview shadow-xl mx-auto">
     <div class="pdf-preview-container">
       <div class="pdf-preview__head">
-        <span class="font-bold">{{ invoice.generalInformation.client }}</span>
+        <span class="font-bold">{{ invoice.generalInformation.client.company }}</span><br>
+        <span>{{ invoice.generalInformation.client.street }}</span><br>
+        <span>{{ invoice.generalInformation.client.zip }} {{ invoice.generalInformation.client.city }}</span>
       </div>
       <div class="pdf-preview__sidebar">
         <img class="logo ml-auto mb-[10mm]" :src="logoUrl" alt="" />
@@ -34,6 +36,10 @@
           <div>
             <span class="font-bold">Rechnungsnummer</span><br />
             <span>{{ invoice.generalInformation.invoiceNumber }}</span>
+          </div>
+          <div>
+            <span class="font-bold">Ihre Usst.-ID</span><br>
+            <span></span>
           </div>
         </div>
       </div>
