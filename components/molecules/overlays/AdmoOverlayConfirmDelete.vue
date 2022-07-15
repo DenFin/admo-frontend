@@ -1,6 +1,6 @@
 <template>
   <div class="rounded overflow-hidden mx-auto">
-    <div class="bg-white border-t-4 border-red-500 p-12 max-w-2xl relative">
+    <div class="bg-white border-t-4 border-red-500 p-12 relative">
       <h1 class="text-3xl font-bold text-center mb-4">{{ contentType }} löschen?</h1>
       <p class="text-center text-gray-600 mb-16 px-8">
         Bist du sicher, dass du den {{ contentType }} {{ deleteItemId }} löschen möchtest?

@@ -19,6 +19,11 @@
             @open-overlay-edit="openOverlay($event)"
           />
         </section>
+        <section>
+          <div class="flex justify-center">
+              <AdmoPagination />
+          </div>
+        </section>
       </AdmoContainer>
     </AdmoPanel>
     <AdmoOverlay
@@ -36,6 +41,10 @@
         @reload-data="reloadData('contacts')"
       />
     </AdmoOverlay>
+    <AdmoNotification
+      v-if="successNotice"
+      :text="`Contact ${successItemId} wurde erfolgreich erstellt.`"
+    />
   </div>
 </template>
 <script>
@@ -50,9 +59,13 @@ import AdmoPanel from '@/components/layout/AdmoPanel'
 import AdmoOverlay from '@/components/molecules/overlays/AdmoOverlay'
 import isEmptyObject from '@/modules/helpers/isEmptyObject'
 import AdmoOverlayConfirmDelete from '@/components/molecules/overlays/AdmoOverlayConfirmDelete'
+import AdmoNotification from "@/components/molecules/notifications/AdmoNotification";
+import AdmoPagination from "@/components/molecules/pagination/AdmoPagination";
 
 export default {
   components: {
+    AdmoPagination,
+    AdmoNotification,
     AdmoOverlayConfirmDelete,
     AdmoOverlay,
     AdmoPanel,
@@ -65,6 +78,9 @@ export default {
   mixins: [hasOverlayMixin],
   computed: {
     ...mapState('ui/overlay.store', ['deleteWarning']),
+    ...mapState('ui/overlay.store', ['successNotice']),
+    ...mapState('ui/overlay.store', ['successItemId']),
+
     contactsSorted() {
       const contactsSorted = this.contacts
       return contactsSorted.sort((a, b) => {
@@ -73,8 +89,33 @@ export default {
     },
   },
   async asyncData({ $axios }) {
-    const contacts = await $axios.$get('/api/v1/contacts')
+    const result = await $axios.$get('/api/v1/contacts')
+    const contacts = result.items
     return { contacts }
+  },
+  data(){
+    return {
+      pager: {
+        currentPage: null
+      }
+    }
+  },
+  watch: {
+    '$route.query.page'() {
+     console.log("ROUTE CHANGED",this.$route.query.page)
+
+        const page = parseInt(this.$route.query.page) || 1;
+     console.log('PAge', page)
+        if (page !== this.pager.currentPage) {
+          fetch(`http://localhost:8080/api/v1/contacts?page=${page}`, { method: 'GET' })
+            .then(response => response.json())
+            .then(({pager, items}) => {
+              console.log(items)
+              this.pager = pager;
+              this.contacts = items;
+            });
+        }
+      }
   },
   mounted() {
     if (!isEmptyObject(this.$route.query))

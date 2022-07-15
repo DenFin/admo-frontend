@@ -1,6 +1,6 @@
 <template>
   <div class="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-80 p-16">
-    <AdmoContainer class="h-full flex items-center lg:max-w-3xl">
+    <AdmoContainer class="h-full w-full lg:max-w-3xl">
       <div class="relative">
         <slot></slot>
         <div
