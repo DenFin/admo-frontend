@@ -2,6 +2,7 @@
   <AdmoPanel>
     <AdmoContainer>
       <AdmoHeadline headline-type="h1" text="Dashboard" />
+      <p>Hallo Otto!</p>
       <AdmoGrid grid-columns="3" grid-gap="8">
         <AdmoCardGeneral><AdmoCardUserInfo /></AdmoCardGeneral>
         <AdmoCardGeneral v-if="contactsCount">
