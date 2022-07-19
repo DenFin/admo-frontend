@@ -1,5 +1,7 @@
 <template>
-  <label :for="forAttr"><span class="font-bold">{{ text }}</span></label>
+  <label :for="forAttr"
+    ><span class="font-bold">{{ text }}</span></label
+  >
 </template>
 
 <script>
@@ -8,12 +10,12 @@ export default {
     forAttr: {
       type: String,
       required: false,
-      default: ''
+      default: '',
     },
     text: {
       type: String,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>

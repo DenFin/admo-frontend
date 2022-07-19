@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import RegisterPage from "~/pages/auth/register";
+import RegisterPage from '~/pages/auth/register'
 
 describe('RegisterPage', () => {
   test('is a Vue instance', () => {

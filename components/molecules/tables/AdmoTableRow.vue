@@ -1,17 +1,16 @@
 <template>
   <div class="border-b-2 py-2 grid">
-      <slot></slot>
+    <slot></slot>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'AdmoTableRow',
-  data(){
+  data() {
     return {
-      rowEdited: { ...this.row }
+      rowEdited: { ...this.row },
     }
-  }
+  },
 }
 </script>

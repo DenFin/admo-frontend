@@ -8,11 +8,11 @@
   </AdmoPanel>
 </template>
 <script>
-import AdmoContainer from "@/components/layout/AdmoContainer";
-import AdmoFormLogin from "@/components/molecules/forms/AdmoFormLogin";
-import AdmoPanel from "@/components/layout/AdmoPanel";
-import AdmoCardGeneral from "@/components/molecules/cards/AdmoCardGeneral";
+import AdmoContainer from '@/components/layout/AdmoContainer'
+import AdmoFormLogin from '@/components/molecules/forms/AdmoFormLogin'
+import AdmoPanel from '@/components/layout/AdmoPanel'
+import AdmoCardGeneral from '@/components/molecules/cards/AdmoCardGeneral'
 export default {
-  components: {AdmoCardGeneral, AdmoPanel, AdmoFormLogin, AdmoContainer}
+  components: { AdmoCardGeneral, AdmoPanel, AdmoFormLogin, AdmoContainer },
 }
 </script>

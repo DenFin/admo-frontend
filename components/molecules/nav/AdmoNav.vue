@@ -2,11 +2,21 @@
   <nav class="bg-gray-500">
     <AdmoContainer>
       <ul>
-        <li class="nav-item" :class="{
-          'block': isMobile,
-          'inline-block': !isMobile,
-        }" v-for="(item, index) in navItems" :key="index">
-          <nuxt-link class="block py-3 px-5 text-white" :class="{'ml-4': isMobile }" :to="item.to" >{{ item.text }}</nuxt-link>
+        <li
+          v-for="(item, index) in navItems"
+          :key="index"
+          class="nav-item"
+          :class="{
+            block: isMobile,
+            'inline-block': !isMobile,
+          }"
+        >
+          <nuxt-link
+            class="block py-3 px-5 text-white"
+            :class="{ 'ml-4': isMobile }"
+            :to="item.to"
+            >{{ item.text }}</nuxt-link
+          >
         </li>
       </ul>
     </AdmoContainer>
@@ -14,53 +24,57 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import AdmoContainer from "@/components/layout/AdmoContainer";
+import { mapState } from 'vuex'
+import AdmoContainer from '@/components/layout/AdmoContainer'
 export default {
   name: 'AdmoNav',
-  components: {AdmoContainer},
-  data(){
+  components: { AdmoContainer },
+  data() {
     return {
       navItems: [
         {
           to: '/dashboard',
-          text: 'Dashboard'
+          text: 'Dashboard',
         },
         {
           to: '/contacts',
-          text: 'Contacts'
+          text: 'Contacts',
         },
         {
           to: '/clients',
-          text: 'Clients'
+          text: 'Clients',
         },
         {
           to: '/proposals',
-          text: 'Proposals'
+          text: 'Proposals',
         },
         {
           to: '/invoices',
-          text: 'Invoices'
+          text: 'Invoices',
         },
         {
           to: '/revenues',
-          text: 'Revenues'
+          text: 'Revenues',
         },
         {
           to: '/settings',
-          text: 'Settings'
-        }
-      ]
+          text: 'Settings',
+        },
+      ],
     }
   },
   computed: {
-    ...mapState('ui/breakpoints.store',['isMobile'])
-  }
+    ...mapState('ui/breakpoints.store', ['isMobile']),
+  },
 }
 </script>
 
-<style>
+<style scoped>
 .nuxt-link-active {
-  @apply underline
+  @apply underline;
+}
+
+ul li:first-of-type a {
+  padding-left: 0;
 }
 </style>

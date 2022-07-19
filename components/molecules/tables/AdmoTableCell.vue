@@ -1,6 +1,8 @@
 <template>
   <div class="self-center">
-    <slot name="text"><span>{{ text }}</span></slot>
+    <slot name="text"
+      ><span>{{ text }}</span></slot
+    >
     <slot name="editable"></slot>
     <slot name="generic"></slot>
   </div>
@@ -12,8 +14,8 @@ export default {
     text: {
       type: String,
       required: false,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
