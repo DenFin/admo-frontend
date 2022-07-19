@@ -132,6 +132,7 @@ import AdmoNotification from '@/components/molecules/notifications/AdmoNotificat
 import AdmoInvoiceFoot from "@/components/organisms/invoices/AdmoInvoiceFoot";
 import AdmoSpinner from '@/components/atoms/AdmoSpinner'
 import AdmoInvoice from "@/components/organisms/invoices/AdmoInvoice";
+import {convertToStandardDate} from "@/modules/helpers/dateHelper";
 export default {
   components: {
     AdmoInvoice,
@@ -152,6 +153,10 @@ export default {
   mixins: [hasOverlayMixin],
   computed: {
     ...mapState('data/clients.store', ['clients']),
+    dateToday(){
+      const now = Date.now()
+      return convertToStandardDate(now)
+    }
   },
   async asyncData({ $axios, store }) {
     if (
@@ -178,7 +183,7 @@ export default {
           client: null,
           invoiceTitel: null,
           invoiceNumber: null,
-          invoiceDate: null,
+          invoiceDate: new Date().toLocaleString(),
           moreValueTaxIdOfClient: null,
         },
       },
@@ -251,6 +256,7 @@ export default {
     async createPDF() {},
   },
   mounted(){
+    // this.invoice.generalInformation.invoiceDate = this.dateToday
     // eslint-disable-next-line
     if (process.client) {
       document.addEventListener('keydown', (e) => {

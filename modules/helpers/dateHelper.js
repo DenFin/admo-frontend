@@ -6,3 +6,8 @@ exports.convertToLocaleDateString = (
   const date = new Date(_date)
   return date.toLocaleDateString(_locale, _options)
 }
+
+exports.convertToStandardDate = (_date, _locale = 'en-EN', _options = { year: 'numeric', month: 'numeric', day: 'numeric' }) => {
+  const date = new Date(_date)
+  return date.toLocaleDateString(_locale, _options)
+}

@@ -49,11 +49,15 @@ export default {
         response = await this.$auth.loginWith('local', {
           data: this.loginData,
         })
+        if(response.status === 200 ) {
+          this.$router.push('/dashboard')
+        }
+        console.log(response)
       } catch (err) {
         console.log(err)
         console.log({ response })
       }
-      this.$router.push('../dashboard')
+
     },
   },
 }

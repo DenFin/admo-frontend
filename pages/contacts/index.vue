@@ -21,7 +21,7 @@
         </section>
         <section>
           <div class="flex justify-center">
-              <AdmoPagination />
+              <AdmoPagination :pager="pager" />
           </div>
         </section>
       </AdmoContainer>
@@ -120,6 +120,10 @@ export default {
   mounted() {
     if (!isEmptyObject(this.$route.query))
       this.$store.dispatch('ui/overlay.store/setActive', true)
+
+    if(!this.pager.currentPage) {
+      this.$router.push({ query: { page: 1}})
+    }
   },
 }
 </script>
